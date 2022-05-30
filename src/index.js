@@ -5,46 +5,57 @@ import App from "./App";
 
 import { createStore } from "redux";
 
-//STORE -> Globalized state
+import { Provider } from "react-redux";
 
-//Action Increament
-const increment = () => {
-  return {
-    type: "INCREMENT",
-  };
-};
+// //STORE -> Globalized state
 
-const decrement = () => {
-  return {
-    type: "DECREMENT",
-  };
-};
+// //Action Increament
+// const increment = () => {
+//   return {
+//     type: "INCREMENT",
+//   };
+// };
 
-//Reducer
-const counter = (state = 0, action) => {
-  switch (action.type) {
-    case "INCREMENT":
-      return state + 1;
-    case "DECREMENT":
-      return state - 1;
-    default:
-      return state;
-  }
-};
+// const decrement = () => {
+//   return {
+//     type: "DECREMENT",
+//   };
+// };
 
-let store = createStore(counter);
+// //Reducer
+// const counter = (state = 0, action) => {
+//   switch (action.type) {
+//     case "INCREMENT":
+//       return state + 1;
+//     case "DECREMENT":
+//       return state - 1;
+//     default:
+//       return state;
+//   }
+// };
 
-//Display it in the console
-store.subscribe(() => console.log(store.getState()));
+// let store = createStore(counter);
 
-//Dispatch
-store.dispatch(increment());
-store.dispatch(decrement());
-store.dispatch(decrement());
+// //Display it in the console
+// store.subscribe(() => console.log(store.getState()));
+
+// //Dispatch
+// store.dispatch(increment());
+// store.dispatch(decrement());
+// store.dispatch(decrement());
+
+import allReducer from "./reducers";
+
+const store = createStore(
+  allReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>
 );
